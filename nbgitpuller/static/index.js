@@ -9,7 +9,7 @@ require([
     utils,
     Terminal,
     fit,
-    _
+    EventSource
 ) {
 
     Terminal.applyAddon(fit);
