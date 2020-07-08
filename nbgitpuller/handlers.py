@@ -41,10 +41,6 @@ class SyncHandler(IPythonHandler):
     @web.authenticated
     @gen.coroutine
     def get(self):
-        # We gonna send out event streams!
-        self.set_header('content-type', 'text/event-stream')
-        self.set_header('cache-control', 'no-cache')
-
         try:
             yield self.git_lock.acquire(1)
         except gen.TimeoutError:
@@ -72,6 +68,10 @@ class SyncHandler(IPythonHandler):
             repo_parent_dir = os.path.join(os.path.expanduser(self.settings['server_root_dir']),
                                            os.getenv('NBGITPULLER_PARENTPATH', ''))
             repo_dir = os.path.join(repo_parent_dir, self.get_argument('targetpath', repo.split('/')[-1]))
+
+            # We gonna send out event streams!
+            self.set_header('content-type', 'text/event-stream')
+            self.set_header('cache-control', 'no-cache')
 
             gp = GitPuller(repo, branch, repo_dir, depth=depth, parent=self.settings['nbapp'])
 

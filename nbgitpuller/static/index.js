@@ -2,14 +2,12 @@ require([
     'jquery',
     'base/js/utils',
     'components/xterm.js/index',
-    'components/xterm.js-fit/index',
-    'eventsource'
+    'components/xterm.js-fit/index'
 ], function(
     $,
     utils,
     Terminal,
-    fit,
-    EventSource
+    fit
 ) {
 
     Terminal.applyAddon(fit);
